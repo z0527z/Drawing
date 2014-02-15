@@ -129,18 +129,18 @@
         UIButton * btn = (UIButton *)sender;
         UIButton * button = (UIButton *)[self.view viewWithTag:100];
         NSLog(@"frame:<%f,%f,%f,%f>", button.frame.origin.x, button.frame.origin.y, button.frame.size.width, button.frame.size.height);
-        __block CGRect tmp = button.frame;
+        __block CGPoint tmp = button.center;
         __block CGAffineTransform transform = button.transform;
         
         [self operateWithBlock:^{
             switch (btn.tag) {
                 case 10:
                 case 11:
-                    tmp.origin.y += (btn.tag == 10 ? -1 : 1) * kMoveStep;
+                    tmp.y += (btn.tag == 10 ? -1 : 1) * kMoveStep;
                     break;
                 case 12:
                 case 13:
-                    tmp.origin.x += (btn.tag == 12 ? -1 : 1) * kMoveStep;
+                    tmp.x += (btn.tag == 12 ? -1 : 1) * kMoveStep;
                     break;
                 case 14:
                 case 15:
@@ -155,7 +155,7 @@
             }
             
             if(btn.tag < 14)
-                button.frame = tmp;
+                button.center = tmp;
             else
                 button.transform = transform;
         }];
